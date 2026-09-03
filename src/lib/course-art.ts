@@ -2,9 +2,15 @@ import josiElite from "@/assets/josi_nascimento_40_anos-26.jpg";
 import josiAvancada from "@/assets/josi_nascimento_40_anos-14.jpg";
 import josiVitoria from "@/assets/josi_nascimento_40_anos-38-2.jpg";
 import josiDestaque from "@/assets/josi_nascimento_40_anos-31.jpg";
-import josiMesa from "@/assets/josi_nascimento_40_anos-21.jpg";
 import josiRetrato from "@/assets/josi_nascimento_40_anos-2.jpg";
 import josiVermelho from "@/assets/josi_nascimento_40_anos-42-2.jpg";
+import aula01 from "@/assets/aula-01.webp";
+import aula02 from "@/assets/aula-02.webp";
+import aula03 from "@/assets/aula-03.webp";
+import aula04 from "@/assets/aula-04.png";
+import aula05 from "@/assets/aula-05.png";
+import aula06 from "@/assets/aula-06.png";
+
 
 /** Capa por curso (fallback quando não há cover_url no banco). */
 export const COURSE_POSTERS: Record<string, string> = {
