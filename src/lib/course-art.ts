@@ -38,3 +38,20 @@ export function lessonCover(module: { title?: string | null; position?: number |
   const n = fromTitle ? Number(fromTitle) : (module.position ?? 0);
   return LESSON_COVERS[n] ?? josiRetrato;
 }
+
+/** Capa do curso com fallback garantido (nunca retorna vazio). */
+export function coursePoster(course: { title?: string | null; cover_url?: string | null }) {
+  if (course?.cover_url) return course.cover_url;
+  if (course?.title && COURSE_POSTERS[course.title]) return COURSE_POSTERS[course.title];
+  return josiRetrato;
+}
+
+/** Imagens usadas em áreas de apoio (materiais, financeiro, agenda). */
+export const SUPPORT_ART = {
+  agenda: josiAvancada,
+  financeiro: josiRetrato,
+  materiais: josiElite,
+  suporte: josiVitoria,
+  destaque: josiVermelho,
+  aulas: [aula01, aula02, aula03, aula04, aula05, aula06],
+};
