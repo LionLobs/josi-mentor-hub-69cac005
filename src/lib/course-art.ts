@@ -17,13 +17,14 @@ export const COURSE_POSTERS: Record<string, string> = {
 
 /** Capa temática de cada videoaula da mentoria (por número da aula). */
 export const LESSON_COVERS: Record<number, string> = {
-  1: josiRetrato,
-  2: josiMesa,
-  3: josiElite,
-  4: josiDestaque,
-  5: josiAvancada,
-  6: josiVitoria,
+  1: aula01,
+  2: aula02,
+  3: aula03,
+  4: aula04,
+  5: aula05,
+  6: aula06,
 };
+
 
 export function lessonCover(module: { title?: string | null; position?: number | null; cover_url?: string | null }) {
   if (module.cover_url) return module.cover_url;
