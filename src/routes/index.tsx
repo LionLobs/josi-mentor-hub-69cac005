@@ -163,12 +163,14 @@ function Landing() {
             className="absolute inset-0 flex"
           >
             <div
-              className="relative w-full h-full lg:w-[70%] ml-auto"
+              className="relative w-full h-full lg:w-[78%] ml-auto"
               style={{
                 WebkitMaskImage:
-                  "radial-gradient(120% 100% at 78% 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 38%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0) 88%)",
+                  "radial-gradient(130% 110% at 82% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 22%, rgba(0,0,0,1) 55%)",
                 maskImage:
-                  "radial-gradient(120% 100% at 78% 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 38%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0) 88%)",
+                  "radial-gradient(130% 110% at 82% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 22%, rgba(0,0,0,1) 55%)",
+                WebkitMaskComposite: "source-in",
+                maskComposite: "intersect",
               }}
             >
               <img
@@ -178,6 +180,7 @@ function Landing() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/40 to-transparent lg:hidden" />
             </div>
+
 
           </motion.div>
           
@@ -681,17 +684,34 @@ function Landing() {
             </div>
           </div>
           
-          <div className="pt-16 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-8">
-            <p className="text-white/20 text-[10px] tracking-[0.2em] uppercase font-bold">
-              © {new Date().getFullYear()} JOSI NASCIMENTO
+          <div className="pt-16 border-t border-white/5 flex flex-col items-center gap-8">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="rounded-full border-gold/40 bg-gold/5 px-7 text-[10px] font-bold uppercase tracking-[0.3em] text-gold hover:bg-gold hover:text-black"
+            >
+              <Link to="/admin">Acesso Área Admin</Link>
+            </Button>
+            <p className="text-[9px] uppercase tracking-[0.3em] text-white/30">
+              Restrito aos e-mails autorizados da equipe
             </p>
-            <div className="flex items-center gap-4">
-               <span className="text-[10px] text-white/10 tracking-widest uppercase font-bold">Desenvolvido por</span>
-               <span className="text-gold text-[10px] tracking-[0.3em] uppercase font-black hover:brightness-125 transition-all">LIONLOBS</span>
+
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 w-full pt-8 border-t border-white/5">
+              <p className="text-white/70 text-[11px] tracking-[0.25em] uppercase font-bold">
+                © {new Date().getFullYear()} JOSI NASCIMENTO
+              </p>
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] text-white/60 tracking-widest uppercase font-semibold">Desenvolvido por</span>
+                <span className="text-[11px] tracking-[0.3em] uppercase font-black text-[#e8c37a] hover:brightness-125 transition-all">
+                  LIONLOBS
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }
