@@ -163,12 +163,14 @@ function Landing() {
             className="absolute inset-0 flex"
           >
             <div
-              className="relative w-full h-full lg:w-[70%] ml-auto"
+              className="relative w-full h-full lg:w-[78%] ml-auto"
               style={{
                 WebkitMaskImage:
-                  "radial-gradient(120% 100% at 78% 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 38%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0) 88%)",
+                  "radial-gradient(130% 110% at 82% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 22%, rgba(0,0,0,1) 55%)",
                 maskImage:
-                  "radial-gradient(120% 100% at 78% 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 38%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0) 88%)",
+                  "radial-gradient(130% 110% at 82% 42%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 22%, rgba(0,0,0,1) 55%)",
+                WebkitMaskComposite: "source-in",
+                maskComposite: "intersect",
               }}
             >
               <img
@@ -178,6 +180,7 @@ function Landing() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/40 to-transparent lg:hidden" />
             </div>
+
 
           </motion.div>
           
