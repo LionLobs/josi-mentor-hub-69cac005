@@ -5,6 +5,7 @@ import { dateTimeBR } from "@/lib/format";
 import { Calendar, Video, Clock, ExternalLink, CalendarCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { BookingWidget } from "@/components/booking-widget";
+import { SUPPORT_ART } from "@/lib/course-art";
 
 export const Route = createFileRoute("/aluno/agenda")({
   component: StudentAgenda,
@@ -40,9 +41,13 @@ function StudentAgenda() {
 
   return (
     <div className="pb-20">
-      <div className="mb-12">
-        <p className="text-xs font-bold tracking-[0.4em] text-gold uppercase mb-2">Seus Encontros</p>
-        <h1 className="text-4xl md:text-5xl font-serif text-white">Agenda de <span className="text-gold italic">Mentoria</span></h1>
+      <div className="relative mb-12 overflow-hidden rounded-[2rem] border border-gold/20 p-8 md:p-12">
+        <img src={SUPPORT_ART.agenda} alt="" className="absolute inset-0 h-full w-full object-cover object-top opacity-25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+        <div className="relative">
+          <p className="text-xs font-bold tracking-[0.4em] text-gold uppercase mb-2">Seus Encontros</p>
+          <h1 className="text-4xl md:text-5xl font-serif text-white">Agenda de <span className="text-gold italic">Mentoria</span></h1>
+        </div>
       </div>
 
       <section className="mb-16">
