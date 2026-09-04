@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 // Assets for background/hero
 import josiHomeHero from "@/assets/josi_nascimento_40_anos-31.jpg";
 import josiPoster1 from "@/assets/josi_nascimento_40_anos-26.jpg";
+import { coursePoster, SUPPORT_ART } from "@/lib/course-art";
 
 export const Route = createFileRoute("/aluno/")({
   component: StudentHome,
@@ -29,7 +30,7 @@ function StudentHome() {
           .gte("scheduled_at", new Date().toISOString())
           .order("scheduled_at", { ascending: true })
           .limit(4),
-        supabase.from("courses").select("id, title, description, cover_url").eq("published", true).limit(4),
+        supabase.from("courses").select("id, title, description, cover_url, course_modules(id)").eq("published", true).limit(4),
       ]);
       return {
         enrollments: enrollments.data ?? [],
@@ -113,7 +114,7 @@ function StudentHome() {
                   <div className="flex gap-4">
                     <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-lg bg-white/5">
                       <img 
-                        src={idx === 0 ? josiPoster1 : course.cover_url} 
+                        src={coursePoster(course) || josiPoster1} 
                         className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500" 
                       />
                       <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -138,6 +139,7 @@ function StudentHome() {
           <section>
             <h2 className="text-2xl font-serif text-white mb-6 px-1">Novidades na <span className="text-gold">Comunidade</span></h2>
             <div className="rounded-3xl bg-gold p-8 md:p-12 text-black overflow-hidden relative">
+               <img src={SUPPORT_ART.destaque} alt="" className="absolute inset-0 h-full w-full object-cover object-top opacity-20 mix-blend-luminosity" />
                <Star className="absolute -top-10 -right-10 h-64 w-64 text-black/5" />
                <div className="relative z-10 max-w-md">
                  <h3 className="text-3xl font-serif mb-4">Nova Masterclass: Precificação de Luxo</h3>
@@ -193,13 +195,17 @@ function StudentHome() {
             </div>
           </section>
 
-          <div className="rounded-3xl border border-gold/20 bg-gold/5 p-8 text-center">
+          <div className="relative overflow-hidden rounded-3xl border border-gold/20 bg-gold/5 p-8 text-center">
+            <img src={SUPPORT_ART.suporte} alt="" className="absolute inset-0 h-full w-full object-cover opacity-15" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+            <div className="relative">
             <GraduationCap className="h-10 w-10 text-gold mx-auto mb-4" />
             <h3 className="font-bold text-white mb-2">Suporte à Aluna</h3>
             <p className="text-xs text-muted-foreground mb-6">Dúvidas técnicas ou acesso? Estamos aqui para ajudar.</p>
             <button className="w-full py-3 rounded-xl border border-gold/30 text-gold text-xs font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all">
               Falar com Suporte
             </button>
+            </div>
           </div>
         </div>
       </div>
