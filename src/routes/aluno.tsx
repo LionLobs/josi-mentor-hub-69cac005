@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LayoutDashboard, CalendarDays, GraduationCap, Wallet, Download } from "lucide-react";
+import { LayoutDashboard, CalendarDays, GraduationCap, Wallet, Download, Video } from "lucide-react";
 import { AppShell, type NavItem } from "@/components/app-shell";
 import { redirect } from "@tanstack/react-router";
 
 const items: NavItem[] = [
   { to: "/aluno", label: "Início", icon: LayoutDashboard },
   { to: "/aluno/cursos", label: "Meus cursos", icon: GraduationCap },
+  { to: "/aluno/call", label: "Call de mentoria", icon: Video },
   { to: "/aluno/agenda", label: "Minha agenda", icon: CalendarDays },
   { to: "/aluno/pagamentos", label: "Pagamentos", icon: Wallet },
   { to: "/aluno/materiais", label: "Downloads", icon: Download },

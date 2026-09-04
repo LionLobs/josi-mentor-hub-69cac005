@@ -25,6 +25,7 @@ import { Route as AdminRelatoriosRouteImport } from './routes/admin.relatorios'
 import { Route as AdminSolicitacoesRouteImport } from './routes/admin.solicitacoes'
 import { Route as AlunoIndexRouteImport } from './routes/aluno.index'
 import { Route as AlunoAgendaRouteImport } from './routes/aluno.agenda'
+import { Route as AlunoCallRouteImport } from './routes/aluno.call'
 import { Route as AlunoCursosRouteImport } from './routes/aluno.cursos'
 import { Route as AlunoMateriaisRouteImport } from './routes/aluno.materiais'
 import { Route as AlunoPagamentosRouteImport } from './routes/aluno.pagamentos'
@@ -112,6 +113,11 @@ const AlunoAgendaRoute = AlunoAgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => AlunoRoute,
 } as any)
+const AlunoCallRoute = AlunoCallRouteImport.update({
+  id: '/call',
+  path: '/call',
+  getParentRoute: () => AlunoRoute,
+} as any)
 const AlunoCursosRoute = AlunoCursosRouteImport.update({
   id: '/cursos',
   path: '/cursos',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/admin/relatorios': typeof AdminRelatoriosRoute
   '/admin/solicitacoes': typeof AdminSolicitacoesRoute
   '/aluno/agenda': typeof AlunoAgendaRoute
+  '/aluno/call': typeof AlunoCallRoute
   '/aluno/cursos': typeof AlunoCursosRouteWithChildren
   '/aluno/materiais': typeof AlunoMateriaisRoute
   '/aluno/pagamentos': typeof AlunoPagamentosRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/admin/relatorios': typeof AdminRelatoriosRoute
   '/admin/solicitacoes': typeof AdminSolicitacoesRoute
   '/aluno/agenda': typeof AlunoAgendaRoute
+  '/aluno/call': typeof AlunoCallRoute
   '/aluno/cursos': typeof AlunoCursosRouteWithChildren
   '/aluno/materiais': typeof AlunoMateriaisRoute
   '/aluno/pagamentos': typeof AlunoPagamentosRoute
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/admin/relatorios': typeof AdminRelatoriosRoute
   '/admin/solicitacoes': typeof AdminSolicitacoesRoute
   '/aluno/agenda': typeof AlunoAgendaRoute
+  '/aluno/call': typeof AlunoCallRoute
   '/aluno/cursos': typeof AlunoCursosRouteWithChildren
   '/aluno/materiais': typeof AlunoMateriaisRoute
   '/aluno/pagamentos': typeof AlunoPagamentosRoute
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/admin/relatorios'
     | '/admin/solicitacoes'
     | '/aluno/agenda'
+    | '/aluno/call'
     | '/aluno/cursos'
     | '/aluno/materiais'
     | '/aluno/pagamentos'
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/admin/relatorios'
     | '/admin/solicitacoes'
     | '/aluno/agenda'
+    | '/aluno/call'
     | '/aluno/cursos'
     | '/aluno/materiais'
     | '/aluno/pagamentos'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
     | '/admin/relatorios'
     | '/admin/solicitacoes'
     | '/aluno/agenda'
+    | '/aluno/call'
     | '/aluno/cursos'
     | '/aluno/materiais'
     | '/aluno/pagamentos'
@@ -409,6 +421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlunoAgendaRouteImport
       parentRoute: typeof AlunoRoute
     }
+    '/aluno/call': {
+      id: '/aluno/call'
+      path: '/call'
+      fullPath: '/aluno/call'
+      preLoaderRoute: typeof AlunoCallRouteImport
+      parentRoute: typeof AlunoRoute
+    }
     '/aluno/cursos': {
       id: '/aluno/cursos'
       path: '/cursos'
@@ -496,6 +515,7 @@ const AlunoCursosRouteWithChildren = AlunoCursosRoute._addFileChildren(
 
 interface AlunoRouteChildren {
   AlunoAgendaRoute: typeof AlunoAgendaRoute
+  AlunoCallRoute: typeof AlunoCallRoute
   AlunoCursosRoute: typeof AlunoCursosRouteWithChildren
   AlunoMateriaisRoute: typeof AlunoMateriaisRoute
   AlunoPagamentosRoute: typeof AlunoPagamentosRoute
@@ -504,6 +524,7 @@ interface AlunoRouteChildren {
 
 const AlunoRouteChildren: AlunoRouteChildren = {
   AlunoAgendaRoute: AlunoAgendaRoute,
+  AlunoCallRoute: AlunoCallRoute,
   AlunoCursosRoute: AlunoCursosRouteWithChildren,
   AlunoMateriaisRoute: AlunoMateriaisRoute,
   AlunoPagamentosRoute: AlunoPagamentosRoute,
