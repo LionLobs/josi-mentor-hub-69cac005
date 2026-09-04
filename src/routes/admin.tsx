@@ -10,6 +10,9 @@ import {
   BarChart3,
   Settings,
   UserPlus,
+  Sparkles,
+  Clock,
+  CalendarCheck,
 } from "lucide-react";
 import { AppShell, type NavItem } from "@/components/app-shell";
 import { useAuth } from "@/lib/auth";
@@ -20,7 +23,10 @@ const items: NavItem[] = [
   { to: "/admin/alunos", label: "Alunos", icon: Users },
   { to: "/admin/solicitacoes", label: "Solicitações", icon: UserPlus },
   { to: "/admin/mentorias", label: "Mentorias", icon: Crown },
-  { to: "/admin/agenda", label: "Agenda", icon: CalendarDays },
+  { to: "/admin/agenda", label: "Agenda mentoria", icon: CalendarDays },
+  { to: "/admin/servicos", label: "Serviços", icon: Sparkles },
+  { to: "/admin/horarios", label: "Horários", icon: Clock },
+  { to: "/admin/agendamentos", label: "Agendamentos", icon: CalendarCheck },
   { to: "/admin/financeiro", label: "Financeiro", icon: Wallet },
   { to: "/admin/cursos", label: "Cursos", icon: GraduationCap },
   { to: "/admin/materiais", label: "Materiais", icon: Download },

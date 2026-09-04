@@ -15,13 +15,16 @@ import { Route as AlunoRouteImport } from './routes/aluno'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAgendaRouteImport } from './routes/admin.agenda'
+import { Route as AdminAgendamentosRouteImport } from './routes/admin.agendamentos'
 import { Route as AdminAlunosRouteImport } from './routes/admin.alunos'
 import { Route as AdminCursosRouteImport } from './routes/admin.cursos'
 import { Route as AdminFinanceiroRouteImport } from './routes/admin.financeiro'
+import { Route as AdminHorariosRouteImport } from './routes/admin.horarios'
 import { Route as AdminIntegracoesRouteImport } from './routes/admin.integracoes'
 import { Route as AdminMateriaisRouteImport } from './routes/admin.materiais'
 import { Route as AdminMentoriasRouteImport } from './routes/admin.mentorias'
 import { Route as AdminRelatoriosRouteImport } from './routes/admin.relatorios'
+import { Route as AdminServicosRouteImport } from './routes/admin.servicos'
 import { Route as AdminSolicitacoesRouteImport } from './routes/admin.solicitacoes'
 import { Route as AlunoIndexRouteImport } from './routes/aluno.index'
 import { Route as AlunoAgendaRouteImport } from './routes/aluno.agenda'
@@ -63,6 +66,11 @@ const AdminAgendaRoute = AdminAgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAgendamentosRoute = AdminAgendamentosRouteImport.update({
+  id: '/agendamentos',
+  path: '/agendamentos',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminAlunosRoute = AdminAlunosRouteImport.update({
   id: '/alunos',
   path: '/alunos',
@@ -76,6 +84,11 @@ const AdminCursosRoute = AdminCursosRouteImport.update({
 const AdminFinanceiroRoute = AdminFinanceiroRouteImport.update({
   id: '/financeiro',
   path: '/financeiro',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHorariosRoute = AdminHorariosRouteImport.update({
+  id: '/horarios',
+  path: '/horarios',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminIntegracoesRoute = AdminIntegracoesRouteImport.update({
@@ -96,6 +109,11 @@ const AdminMentoriasRoute = AdminMentoriasRouteImport.update({
 const AdminRelatoriosRoute = AdminRelatoriosRouteImport.update({
   id: '/relatorios',
   path: '/relatorios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServicosRoute = AdminServicosRouteImport.update({
+  id: '/servicos',
+  path: '/servicos',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSolicitacoesRoute = AdminSolicitacoesRouteImport.update({
@@ -155,13 +173,16 @@ export interface FileRoutesByFullPath {
   '/aluno': typeof AlunoRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/admin/agenda': typeof AdminAgendaRoute
+  '/admin/agendamentos': typeof AdminAgendamentosRoute
   '/admin/alunos': typeof AdminAlunosRoute
   '/admin/cursos': typeof AdminCursosRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/horarios': typeof AdminHorariosRoute
   '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/materiais': typeof AdminMateriaisRoute
   '/admin/mentorias': typeof AdminMentoriasRoute
   '/admin/relatorios': typeof AdminRelatoriosRoute
+  '/admin/servicos': typeof AdminServicosRoute
   '/admin/solicitacoes': typeof AdminSolicitacoesRoute
   '/aluno/agenda': typeof AlunoAgendaRoute
   '/aluno/call': typeof AlunoCallRoute
@@ -178,13 +199,16 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteWithChildren
   '/admin/agenda': typeof AdminAgendaRoute
+  '/admin/agendamentos': typeof AdminAgendamentosRoute
   '/admin/alunos': typeof AdminAlunosRoute
   '/admin/cursos': typeof AdminCursosRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/horarios': typeof AdminHorariosRoute
   '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/materiais': typeof AdminMateriaisRoute
   '/admin/mentorias': typeof AdminMentoriasRoute
   '/admin/relatorios': typeof AdminRelatoriosRoute
+  '/admin/servicos': typeof AdminServicosRoute
   '/admin/solicitacoes': typeof AdminSolicitacoesRoute
   '/aluno/agenda': typeof AlunoAgendaRoute
   '/aluno/call': typeof AlunoCallRoute
@@ -204,13 +228,16 @@ export interface FileRoutesById {
   '/aluno': typeof AlunoRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
   '/admin/agenda': typeof AdminAgendaRoute
+  '/admin/agendamentos': typeof AdminAgendamentosRoute
   '/admin/alunos': typeof AdminAlunosRoute
   '/admin/cursos': typeof AdminCursosRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/horarios': typeof AdminHorariosRoute
   '/admin/integracoes': typeof AdminIntegracoesRoute
   '/admin/materiais': typeof AdminMateriaisRoute
   '/admin/mentorias': typeof AdminMentoriasRoute
   '/admin/relatorios': typeof AdminRelatoriosRoute
+  '/admin/servicos': typeof AdminServicosRoute
   '/admin/solicitacoes': typeof AdminSolicitacoesRoute
   '/aluno/agenda': typeof AlunoAgendaRoute
   '/aluno/call': typeof AlunoCallRoute
@@ -231,13 +258,16 @@ export interface FileRouteTypes {
     | '/aluno'
     | '/auth'
     | '/admin/agenda'
+    | '/admin/agendamentos'
     | '/admin/alunos'
     | '/admin/cursos'
     | '/admin/financeiro'
+    | '/admin/horarios'
     | '/admin/integracoes'
     | '/admin/materiais'
     | '/admin/mentorias'
     | '/admin/relatorios'
+    | '/admin/servicos'
     | '/admin/solicitacoes'
     | '/aluno/agenda'
     | '/aluno/call'
@@ -254,13 +284,16 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/admin/agenda'
+    | '/admin/agendamentos'
     | '/admin/alunos'
     | '/admin/cursos'
     | '/admin/financeiro'
+    | '/admin/horarios'
     | '/admin/integracoes'
     | '/admin/materiais'
     | '/admin/mentorias'
     | '/admin/relatorios'
+    | '/admin/servicos'
     | '/admin/solicitacoes'
     | '/aluno/agenda'
     | '/aluno/call'
@@ -279,13 +312,16 @@ export interface FileRouteTypes {
     | '/aluno'
     | '/auth'
     | '/admin/agenda'
+    | '/admin/agendamentos'
     | '/admin/alunos'
     | '/admin/cursos'
     | '/admin/financeiro'
+    | '/admin/horarios'
     | '/admin/integracoes'
     | '/admin/materiais'
     | '/admin/mentorias'
     | '/admin/relatorios'
+    | '/admin/servicos'
     | '/admin/solicitacoes'
     | '/aluno/agenda'
     | '/aluno/call'
@@ -351,6 +387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAgendaRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/agendamentos': {
+      id: '/admin/agendamentos'
+      path: '/agendamentos'
+      fullPath: '/admin/agendamentos'
+      preLoaderRoute: typeof AdminAgendamentosRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/alunos': {
       id: '/admin/alunos'
       path: '/alunos'
@@ -370,6 +413,13 @@ declare module '@tanstack/react-router' {
       path: '/financeiro'
       fullPath: '/admin/financeiro'
       preLoaderRoute: typeof AdminFinanceiroRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/horarios': {
+      id: '/admin/horarios'
+      path: '/horarios'
+      fullPath: '/admin/horarios'
+      preLoaderRoute: typeof AdminHorariosRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/integracoes': {
@@ -398,6 +448,13 @@ declare module '@tanstack/react-router' {
       path: '/relatorios'
       fullPath: '/admin/relatorios'
       preLoaderRoute: typeof AdminRelatoriosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/servicos': {
+      id: '/admin/servicos'
+      path: '/servicos'
+      fullPath: '/admin/servicos'
+      preLoaderRoute: typeof AdminServicosRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/solicitacoes': {
@@ -475,26 +532,32 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminAgendaRoute: typeof AdminAgendaRoute
+  AdminAgendamentosRoute: typeof AdminAgendamentosRoute
   AdminAlunosRoute: typeof AdminAlunosRoute
   AdminCursosRoute: typeof AdminCursosRoute
   AdminFinanceiroRoute: typeof AdminFinanceiroRoute
+  AdminHorariosRoute: typeof AdminHorariosRoute
   AdminIntegracoesRoute: typeof AdminIntegracoesRoute
   AdminMateriaisRoute: typeof AdminMateriaisRoute
   AdminMentoriasRoute: typeof AdminMentoriasRoute
   AdminRelatoriosRoute: typeof AdminRelatoriosRoute
+  AdminServicosRoute: typeof AdminServicosRoute
   AdminSolicitacoesRoute: typeof AdminSolicitacoesRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminAgendaRoute: AdminAgendaRoute,
+  AdminAgendamentosRoute: AdminAgendamentosRoute,
   AdminAlunosRoute: AdminAlunosRoute,
   AdminCursosRoute: AdminCursosRoute,
   AdminFinanceiroRoute: AdminFinanceiroRoute,
+  AdminHorariosRoute: AdminHorariosRoute,
   AdminIntegracoesRoute: AdminIntegracoesRoute,
   AdminMateriaisRoute: AdminMateriaisRoute,
   AdminMentoriasRoute: AdminMentoriasRoute,
   AdminRelatoriosRoute: AdminRelatoriosRoute,
+  AdminServicosRoute: AdminServicosRoute,
   AdminSolicitacoesRoute: AdminSolicitacoesRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
