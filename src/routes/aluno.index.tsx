@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { SUPPORT_PHONE, whatsappLink } from "@/lib/contact";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { dateTimeBR } from "@/lib/format";
@@ -201,10 +202,10 @@ function StudentHome() {
             <div className="relative">
             <GraduationCap className="h-10 w-10 text-gold mx-auto mb-4" />
             <h3 className="font-bold text-white mb-2">Suporte à Aluna</h3>
-            <p className="text-xs text-muted-foreground mb-6">Dúvidas técnicas ou acesso? Estamos aqui para ajudar.</p>
-            <button className="w-full py-3 rounded-xl border border-gold/30 text-gold text-xs font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all">
-              Falar com Suporte
-            </button>
+            <p className="text-xs text-muted-foreground mb-6">Dúvidas técnicas ou acesso? Fale com a gente no WhatsApp {SUPPORT_PHONE}.</p>
+            <a href={whatsappLink()} target="_blank" rel="noreferrer" className="block w-full py-3 rounded-xl border border-gold/30 text-gold text-xs font-bold uppercase tracking-widest hover:bg-gold hover:text-black transition-all">
+              Falar com Suporte · {SUPPORT_PHONE}
+            </a>
             </div>
           </div>
         </div>

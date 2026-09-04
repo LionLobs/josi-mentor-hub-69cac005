@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { SUPPORT_PHONE, whatsappLink } from "@/lib/contact";
 import { supabase } from "@/integrations/supabase/client";
 import { brl, dateBR } from "@/lib/format";
 import { Wallet, ShieldCheck, CreditCard, ReceiptText, ArrowUpRight } from "lucide-react";
@@ -67,11 +68,11 @@ function StudentPayments() {
               </div>
               <div className="flex-1">
                  <h4 className="text-xl font-serif text-black mb-2">Precisa de ajuda com o pagamento?</h4>
-                 <p className="text-black/60 text-sm">Fale diretamente com o financeiro para alteração de cartão ou datas.</p>
+                 <p className="text-black/60 text-sm">Fale com o financeiro pelo WhatsApp {SUPPORT_PHONE} para alteração de cartão ou datas.</p>
               </div>
-              <button className="bg-black text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-zinc-800 transition-all shrink-0">
-                 Suporte Financeiro
-              </button>
+              <a href={whatsappLink("Olá! Preciso de ajuda com um pagamento na plataforma.")} target="_blank" rel="noreferrer" className="bg-black text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-zinc-800 transition-all shrink-0">
+                 Suporte Financeiro · {SUPPORT_PHONE}
+              </a>
            </div>
         </div>
       </div>
