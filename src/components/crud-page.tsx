@@ -38,6 +38,7 @@ export type Field = {
     | "money"
     | "date"
     | "datetime"
+    | "time"
     | "select"
     | "checkbox"
     | "file";
@@ -262,7 +263,9 @@ export function CrudPage({
                               ? "date"
                               : f.type === "datetime"
                                 ? "datetime-local"
-                                : "text"
+                                : f.type === "time"
+                                  ? "time"
+                                  : "text"
                         }
                         step={f.type === "money" ? "0.01" : undefined}
                         required={f.required}
