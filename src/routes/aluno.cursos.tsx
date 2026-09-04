@@ -214,7 +214,7 @@ function StudentCourses() {
               {featuredLessons.map((m: any, i: number) => (
                 <LessonPoster
                   key={m.id}
-                  courseId={featured.id}
+                  courseId={featured!.id}
                   lesson={m}
                   index={i}
                   done={!!data?.done.has(m.id)}

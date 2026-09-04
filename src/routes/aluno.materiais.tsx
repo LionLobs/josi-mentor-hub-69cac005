@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 // Mock poster for downloads to keep the Netflix vibe
 import josiPoster from "@/assets/josi_nascimento_40_anos-14.jpg";
+import { SUPPORT_ART } from "@/lib/course-art";
 
 export const Route = createFileRoute("/aluno/materiais")({
   component: StudentDownloads,
@@ -85,7 +86,7 @@ function StudentDownloads() {
             className="group relative overflow-hidden rounded-3xl border border-white/10 bg-card shadow-elegant"
           >
             <div className="absolute inset-0 z-0">
-               <img src={josiPoster} className="w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" />
+               <img src={SUPPORT_ART.aulas[idx % SUPPORT_ART.aulas.length] ?? josiPoster} className="w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" />
                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/80 to-transparent" />
             </div>
             
@@ -120,14 +121,16 @@ function StudentDownloads() {
         <h2 className="text-2xl font-serif text-white mb-8 px-1">Materiais <span className="text-gold italic">Premium</span></h2>
         <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className="min-w-[280px] h-40 rounded-2xl border border-white/5 bg-white/5 p-6 flex flex-col justify-between hover:bg-white/10 transition-colors cursor-pointer">
-              <div className="flex justify-between items-start">
+            <div key={i} className="relative overflow-hidden min-w-[280px] h-40 rounded-2xl border border-gold/15 bg-white/5 p-6 flex flex-col justify-between hover:bg-white/10 transition-colors cursor-pointer">
+              <img src={SUPPORT_ART.aulas[(i - 1) % SUPPORT_ART.aulas.length]} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+              <div className="relative flex justify-between items-start">
                 <div className="h-8 w-8 rounded-lg bg-gold/20 flex items-center justify-center">
                    <FileDown className="h-4 w-4 text-gold" />
                 </div>
                 <span className="text-[9px] font-bold text-gold uppercase border border-gold/30 px-2 py-0.5 rounded-full">PDF</span>
               </div>
-              <div>
+              <div className="relative">
                 <h4 className="font-bold text-white text-sm">Protocolo Master #{i}</h4>
                 <p className="text-[10px] text-white/40 uppercase tracking-widest mt-1">Material de Apoio</p>
               </div>

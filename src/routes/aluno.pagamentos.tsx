@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { brl, dateBR } from "@/lib/format";
 import { Wallet, ShieldCheck, CreditCard, ReceiptText, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { SUPPORT_ART } from "@/lib/course-art";
 
 export const Route = createFileRoute("/aluno/pagamentos")({
   component: StudentPayments,
@@ -30,9 +31,13 @@ function StudentPayments() {
 
   return (
     <div className="pb-20">
-      <div className="mb-12">
-        <p className="text-xs font-bold tracking-[0.4em] text-gold uppercase mb-2">Área Financeira</p>
-        <h1 className="text-4xl md:text-5xl font-serif text-white">Gestão de <span className="text-gold italic">Investimento</span></h1>
+      <div className="relative mb-12 overflow-hidden rounded-[2rem] border border-gold/20 p-8 md:p-12">
+        <img src={SUPPORT_ART.financeiro} alt="" className="absolute inset-0 h-full w-full object-cover object-top opacity-25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+        <div className="relative">
+          <p className="text-xs font-bold tracking-[0.4em] text-gold uppercase mb-2">Área Financeira</p>
+          <h1 className="text-4xl md:text-5xl font-serif text-white">Gestão de <span className="text-gold italic">Investimento</span></h1>
+        </div>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-4 mb-12">
