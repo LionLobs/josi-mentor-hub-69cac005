@@ -46,6 +46,7 @@ export type Database = {
       }
       bookings: {
         Row: {
+          amount_cents: number
           created_at: string
           duration_min: number
           email: string
@@ -53,6 +54,8 @@ export type Database = {
           google_event_id: string | null
           id: string
           notes: string | null
+          payment_method: string | null
+          payment_status: string
           phone: string | null
           service_id: string | null
           starts_at: string
@@ -60,6 +63,7 @@ export type Database = {
           user_id: string | null
         }
         Insert: {
+          amount_cents?: number
           created_at?: string
           duration_min?: number
           email: string
@@ -67,6 +71,8 @@ export type Database = {
           google_event_id?: string | null
           id?: string
           notes?: string | null
+          payment_method?: string | null
+          payment_status?: string
           phone?: string | null
           service_id?: string | null
           starts_at: string
@@ -74,6 +80,7 @@ export type Database = {
           user_id?: string | null
         }
         Update: {
+          amount_cents?: number
           created_at?: string
           duration_min?: number
           email?: string
@@ -81,6 +88,8 @@ export type Database = {
           google_event_id?: string | null
           id?: string
           notes?: string | null
+          payment_method?: string | null
+          payment_status?: string
           phone?: string | null
           service_id?: string | null
           starts_at?: string
@@ -481,11 +490,13 @@ export type Database = {
       services: {
         Row: {
           active: boolean
+          checkout_url: string | null
           created_at: string
           description: string | null
           discount_note: string | null
           duration_min: number
           id: string
+          kind: string
           name: string
           package_label: string | null
           package_price_cents: number | null
@@ -494,11 +505,13 @@ export type Database = {
         }
         Insert: {
           active?: boolean
+          checkout_url?: string | null
           created_at?: string
           description?: string | null
           discount_note?: string | null
           duration_min?: number
           id?: string
+          kind?: string
           name: string
           package_label?: string | null
           package_price_cents?: number | null
@@ -507,11 +520,13 @@ export type Database = {
         }
         Update: {
           active?: boolean
+          checkout_url?: string | null
           created_at?: string
           description?: string | null
           discount_note?: string | null
           duration_min?: number
           id?: string
+          kind?: string
           name?: string
           package_label?: string | null
           package_price_cents?: number | null
