@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { SUPPORT_PHONE, whatsappLink } from "@/lib/contact";
 import { supabase } from "@/integrations/supabase/client";
 import { dateTimeBR } from "@/lib/format";
 import { Calendar, Video, Clock, ExternalLink, CalendarCheck } from "lucide-react";
@@ -186,10 +187,10 @@ function StudentAgenda() {
            <div className="rounded-3xl bg-gradient-to-br from-gold/20 to-transparent border border-gold/20 p-8 text-center">
               <Video className="h-10 w-10 text-gold mx-auto mb-4" />
               <h3 className="font-bold text-white mb-2">Dificuldade com o Link?</h3>
-              <p className="text-xs text-white/60 mb-6 leading-relaxed">Se o botão "Entrar na Sala" não estiver funcionando, entre em contato via WhatsApp suporte.</p>
-              <button className="w-full py-3 rounded-xl bg-gold text-black font-bold text-xs uppercase tracking-widest hover:bg-white transition-all">
-                Suporte Técnico
-              </button>
+              <p className="text-xs text-white/60 mb-6 leading-relaxed">Se o botão "Entrar na Sala" não estiver funcionando, chame o suporte no WhatsApp {SUPPORT_PHONE}.</p>
+              <a href={whatsappLink("Olá! Preciso de suporte técnico com o link da minha sessão.")} target="_blank" rel="noreferrer" className="block w-full py-3 rounded-xl bg-gold text-black font-bold text-xs uppercase tracking-widest hover:bg-white transition-all">
+                Suporte Técnico · {SUPPORT_PHONE}
+              </a>
            </div>
         </aside>
       </div>

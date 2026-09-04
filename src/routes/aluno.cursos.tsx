@@ -77,7 +77,7 @@ function NetflixHero({ course, lessons }: { course: any; lessons: any[] }) {
 
 function LessonPoster({ courseId, lesson, index, done }: { courseId: string; lesson: any; index: number; done: boolean }) {
   return (
-    <motion.div whileHover={{ scale: 1.04, zIndex: 10 }} className="relative w-[170px] shrink-0 md:w-[210px]">
+    <motion.div whileHover={{ scale: 1.04, zIndex: 10 }} className="relative w-[46vw] max-w-[210px] shrink-0 snap-start sm:w-[170px] md:w-[210px]">
       <Link
         to="/aluno/cursos/$courseId"
         params={{ courseId }}
@@ -114,7 +114,7 @@ function LessonPoster({ courseId, lesson, index, done }: { courseId: string; les
 
 function CoursePoster({ course, progress, lessons }: { course: any; progress: number; lessons: number }) {
   return (
-    <motion.div whileHover={{ scale: 1.05, zIndex: 10 }} className="w-[170px] shrink-0 md:w-[200px]">
+    <motion.div whileHover={{ scale: 1.05, zIndex: 10 }} className="w-[46vw] max-w-[200px] shrink-0 snap-start sm:w-[170px] md:w-[200px]">
       <Link
         to="/aluno/cursos/$courseId"
         params={{ courseId: course.id }}
@@ -149,7 +149,7 @@ function CoursePoster({ course, progress, lessons }: { course: any; progress: nu
 
 function Row({ children }: { children: React.ReactNode }) {
   return (
-    <div className="-mx-1 flex gap-4 overflow-x-auto px-1 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="-mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-4 md:gap-4 md:snap-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {children}
     </div>
   );
@@ -232,7 +232,7 @@ function StudentCourses() {
         {isLoading && (
           <div className="mt-6 flex gap-4">
             {[1, 2, 3, 4, 5].map(i => (
-              <div key={i} className="aspect-[2/3] w-[170px] shrink-0 animate-pulse rounded-2xl bg-white/5 md:w-[200px]" />
+              <div key={i} className="aspect-[2/3] w-[46vw] max-w-[200px] shrink-0 animate-pulse rounded-2xl bg-white/5 sm:w-[170px] md:w-[200px]" />
             ))}
           </div>
         )}
