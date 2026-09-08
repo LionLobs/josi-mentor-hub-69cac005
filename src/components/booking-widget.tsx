@@ -97,21 +97,45 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
       const { data: auth } = await supabase.auth.getUser();
       const user = auth.user;
       const chosen: PaymentMethod = needsPayment ? method : "presencial";
-      const { error } = await supabase.from("bookings").insert({
-        service_id: service.id,
-        user_id: user?.id ?? null,
-        full_name: form.full_name.trim(),
-        email: form.email.trim() || user?.email || "",
-        phone: form.phone.trim() || null,
-        starts_at: slot,
-        duration_min: service.duration_min,
-        notes: form.notes.trim() || null,
-        amount_cents: price,
-        payment_method: chosen,
-        payment_status: needsPayment ? "pendente" : "isento",
-      });
+      const email = form.email.trim() || user?.email || "";
+      const { data: created, error } = await supabase
+        .from("bookings")
+        .insert({
+          service_id: service.id,
+          user_id: user?.id ?? null,
+          full_name: form.full_name.trim(),
+          email,
+          phone: form.phone.trim() || null,
+          starts_at: slot,
+          duration_min: service.duration_min,
+          notes: form.notes.trim() || null,
+          amount_cents: price,
+          payment_method: chosen,
+          payment_status: needsPayment ? "pendente" : "isento",
+        })
+        .select("id")
+        .single();
       if (error) throw error;
-      return { starts_at: slot, service, method: chosen };
+
+      let meetUrl: string | null = null;
+      if (kind === "mentoria" && created?.id) {
+        try {
+          const res = await createMeet({
+            data: {
+              bookingId: created.id,
+              title: `${service.name} — Josi Nascimento`,
+              startsAt: slot,
+              durationMin: service.duration_min,
+              attendeeEmail: email || null,
+              notes: form.notes.trim() || null,
+            },
+          });
+          if (res.ok) meetUrl = res.meetUrl;
+        } catch (err) {
+          console.error("Google Meet", err);
+        }
+      }
+      return { starts_at: slot, service, method: chosen, meetUrl };
     },
     onSuccess: (res) => {
       toast.success("Agendamento confirmado!");
