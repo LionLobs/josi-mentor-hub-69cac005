@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Users, Wallet, CalendarDays, Crown, TrendingUp, ArrowUpRight, ArrowDownRight, Activity, GraduationCap } from "lucide-react";
+import { Users, Wallet, CalendarDays, Crown, TrendingUp, ArrowUpRight, ArrowDownRight, Activity, GraduationCap, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl, dateTimeBR } from "@/lib/format";
 import { motion } from "framer-motion";
@@ -166,22 +166,22 @@ function Dashboard() {
            <div className="rounded-[2.5rem] border border-white/10 bg-gold p-8 text-black">
               <h3 className="text-xl font-serif mb-6">Ações Rápidas</h3>
               <div className="grid grid-cols-2 gap-3">
-                 <button className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
+                 <Link to="/admin/alunos" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
                     <Users className="h-5 w-5 mb-2" />
                     <span className="text-[9px] font-bold uppercase tracking-widest text-center">Novo Aluno</span>
-                 </button>
-                 <button className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
+                 </Link>
+                 <Link to="/admin/agenda" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
                     <CalendarDays className="h-5 w-5 mb-2" />
                     <span className="text-[9px] font-bold uppercase tracking-widest text-center">Nova Sessão</span>
-                 </button>
-                 <button className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
+                 </Link>
+                 <Link to="/admin/materiais" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
                     <GraduationCap className="h-5 w-5 mb-2" />
                     <span className="text-[9px] font-bold uppercase tracking-widest text-center">Subir Aula</span>
-                 </button>
-                 <button className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
+                 </Link>
+                 <Link to="/admin/integracoes" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
                     <Settings className="h-5 w-5 mb-2" />
                     <span className="text-[9px] font-bold uppercase tracking-widest text-center">Ajustes</span>
-                 </button>
+                 </Link>
               </div>
            </div>
 
