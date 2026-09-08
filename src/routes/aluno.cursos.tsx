@@ -125,8 +125,8 @@ function CoursePoster({ course, progress, lessons }: { course: any; progress: nu
           alt={course.title}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 p-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 p-4 pt-10">
           <div className="mb-2 flex items-center justify-between">
             <div className="flex items-center gap-1 text-gold">
               <Star className="h-3 w-3 fill-gold" />
@@ -137,7 +137,7 @@ function CoursePoster({ course, progress, lessons }: { course: any; progress: nu
               {lessons} aulas
             </span>
           </div>
-          <h3 className="mb-2 line-clamp-3 text-[10px] font-bold leading-snug text-white">{course.title}</h3>
+          <h3 className="mb-2 line-clamp-3 text-[9px] font-bold leading-snug text-white">{course.title}</h3>
           <div className="h-1 w-full overflow-hidden rounded-full bg-white/15">
             <motion.div initial={{ width: 0 }} animate={{ width: `${progress}%` }} className="h-full bg-gold" />
           </div>
