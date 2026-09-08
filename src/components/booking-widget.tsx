@@ -55,7 +55,10 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
   const [slot, setSlot] = useState<string | null>(null);
   const [method, setMethod] = useState<PaymentMethod>("pix");
   const [form, setForm] = useState({ full_name: "", email: "", phone: "", notes: "" });
-  const [confirmed, setConfirmed] = useState<{ starts_at: string; service: Service; method: PaymentMethod } | null>(null);
+  const [confirmed, setConfirmed] = useState<
+    { starts_at: string; service: Service; method: PaymentMethod; meetUrl: string | null } | null
+  >(null);
+  const createMeet = useServerFn(createMeetForBooking);
 
   const { data: services = [], isLoading: loadingServices } = useQuery({
     queryKey: ["services", kind],
