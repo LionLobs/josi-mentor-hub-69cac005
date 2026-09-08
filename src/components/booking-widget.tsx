@@ -165,6 +165,7 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
     });
     const amount = confirmed.service.price_cents;
     const pixMsg = `Olá! Agendei ${confirmed.service.name} para ${when}. Quero pagar via Pix (${brl(amount)}).`;
+    const confirmMsg = `Olá! Confirmando meu agendamento: ${confirmed.service.name} em ${when}.${confirmed.meetUrl ? ` Sala do Meet: ${confirmed.meetUrl}` : ""}`;
     return (
       <div className="rounded-[2rem] border border-gold/25 bg-gradient-to-br from-gold/10 to-transparent p-6 text-center md:p-10">
         <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-black">
