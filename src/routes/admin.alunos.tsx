@@ -31,6 +31,7 @@ export const Route = createFileRoute("/admin/alunos")({
           { key: "email", label: "E-mail" },
           { key: "phone", label: "Telefone" },
           { key: "status", label: "Situação" },
+          { key: "vip", label: "VIP", render: (r) => (r["vip"] ? "★ VIP" : "—") },
           { key: "created_at", label: "Cadastro", render: (r) => dateBR(r["created_at"]) },
         ]}
         fields={[
@@ -48,6 +49,8 @@ export const Route = createFileRoute("/admin/alunos")({
               { value: "lead", label: "Lead" },
             ],
           },
+          { name: "vip", label: "Cliente VIP (libera a Área VIP)", type: "checkbox", defaultValue: false },
+          { name: "vip_since", label: "VIP desde", type: "date" },
           { name: "notes", label: "Observações", type: "textarea" },
         ]}
       />

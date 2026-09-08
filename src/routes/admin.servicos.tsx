@@ -39,8 +39,21 @@ export const Route = createFileRoute("/admin/servicos")({
           options: [
             { value: "atendimento", label: "Atendimento" },
             { value: "mentoria", label: "Call de mentoria" },
+            { value: "plano", label: "Plano de massagens" },
           ],
         },
+        {
+          name: "billing_period",
+          label: "Periodicidade (só para planos)",
+          type: "select",
+          options: [
+            { value: "", label: "Não é plano" },
+            { value: "mensal", label: "Mensal" },
+            { value: "trimestral", label: "Trimestral" },
+            { value: "anual", label: "Anual" },
+          ],
+        },
+        { name: "vip_only", label: "Exclusivo para clientes VIP", type: "checkbox", defaultValue: false },
         { name: "duration_min", label: "Duração (min)", type: "number", defaultValue: 60, required: true },
         { name: "price_cents", label: "Valor (R$)", type: "money", required: true },
         { name: "package_label", label: "Nome do pacote (opcional)" },
