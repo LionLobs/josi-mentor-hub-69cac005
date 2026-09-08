@@ -46,7 +46,7 @@ function NetflixHero({ course, lessons }: { course: any; lessons: any[] }) {
           <Flame className="h-4 w-4 fill-gold" />
           <span className="text-[10px] font-bold uppercase tracking-[0.4em]">Em destaque</span>
         </div>
-        <h1 className="mb-4 font-serif text-4xl leading-tight text-white md:text-6xl line-clamp-3">{course.title}</h1>
+        <h1 className="mb-4 font-serif text-3xl leading-tight text-white md:text-5xl">{course.title}</h1>
         <p className="mb-6 max-w-xl text-sm text-white/70 md:text-base line-clamp-3">{course.description}</p>
         <div className="mb-8 flex flex-wrap items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-white/50">
           <span className="rounded-full border border-gold/30 px-3 py-1 text-gold">{lessons.length} módulos</span>
