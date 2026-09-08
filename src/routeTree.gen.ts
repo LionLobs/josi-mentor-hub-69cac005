@@ -32,6 +32,7 @@ import { Route as AlunoCallRouteImport } from './routes/aluno.call'
 import { Route as AlunoCursosRouteImport } from './routes/aluno.cursos'
 import { Route as AlunoMateriaisRouteImport } from './routes/aluno.materiais'
 import { Route as AlunoPagamentosRouteImport } from './routes/aluno.pagamentos'
+import { Route as AlunoVipRouteImport } from './routes/aluno.vip'
 import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
 import { Route as AlunoCursosCourseIdRouteImport } from './routes/aluno.cursos.$courseId'
 import { Route as ApiPublicKiwifyRouteImport } from './routes/api/public/kiwify'
@@ -151,6 +152,11 @@ const AlunoPagamentosRoute = AlunoPagamentosRouteImport.update({
   path: '/pagamentos',
   getParentRoute: () => AlunoRoute,
 } as any)
+const AlunoVipRoute = AlunoVipRouteImport.update({
+  id: '/vip',
+  path: '/vip',
+  getParentRoute: () => AlunoRoute,
+} as any)
 const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -189,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/aluno/cursos': typeof AlunoCursosRouteWithChildren
   '/aluno/materiais': typeof AlunoMateriaisRoute
   '/aluno/pagamentos': typeof AlunoPagamentosRoute
+  '/aluno/vip': typeof AlunoVipRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/admin/': typeof AdminIndexRoute
   '/aluno/': typeof AlunoIndexRoute
@@ -215,6 +222,7 @@ export interface FileRoutesByTo {
   '/aluno/cursos': typeof AlunoCursosRouteWithChildren
   '/aluno/materiais': typeof AlunoMateriaisRoute
   '/aluno/pagamentos': typeof AlunoPagamentosRoute
+  '/aluno/vip': typeof AlunoVipRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/admin': typeof AdminIndexRoute
   '/aluno': typeof AlunoIndexRoute
@@ -244,6 +252,7 @@ export interface FileRoutesById {
   '/aluno/cursos': typeof AlunoCursosRouteWithChildren
   '/aluno/materiais': typeof AlunoMateriaisRoute
   '/aluno/pagamentos': typeof AlunoPagamentosRoute
+  '/aluno/vip': typeof AlunoVipRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
   '/admin/': typeof AdminIndexRoute
   '/aluno/': typeof AlunoIndexRoute
@@ -274,6 +283,7 @@ export interface FileRouteTypes {
     | '/aluno/cursos'
     | '/aluno/materiais'
     | '/aluno/pagamentos'
+    | '/aluno/vip'
     | '/auth/reset-password'
     | '/admin/'
     | '/aluno/'
@@ -300,6 +310,7 @@ export interface FileRouteTypes {
     | '/aluno/cursos'
     | '/aluno/materiais'
     | '/aluno/pagamentos'
+    | '/aluno/vip'
     | '/auth/reset-password'
     | '/admin'
     | '/aluno'
@@ -328,6 +339,7 @@ export interface FileRouteTypes {
     | '/aluno/cursos'
     | '/aluno/materiais'
     | '/aluno/pagamentos'
+    | '/aluno/vip'
     | '/auth/reset-password'
     | '/admin/'
     | '/aluno/'
@@ -506,6 +518,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlunoPagamentosRouteImport
       parentRoute: typeof AlunoRoute
     }
+    '/aluno/vip': {
+      id: '/aluno/vip'
+      path: '/vip'
+      fullPath: '/aluno/vip'
+      preLoaderRoute: typeof AlunoVipRouteImport
+      parentRoute: typeof AlunoRoute
+    }
     '/auth/reset-password': {
       id: '/auth/reset-password'
       path: '/reset-password'
@@ -582,6 +601,7 @@ interface AlunoRouteChildren {
   AlunoCursosRoute: typeof AlunoCursosRouteWithChildren
   AlunoMateriaisRoute: typeof AlunoMateriaisRoute
   AlunoPagamentosRoute: typeof AlunoPagamentosRoute
+  AlunoVipRoute: typeof AlunoVipRoute
   AlunoIndexRoute: typeof AlunoIndexRoute
 }
 
@@ -591,6 +611,7 @@ const AlunoRouteChildren: AlunoRouteChildren = {
   AlunoCursosRoute: AlunoCursosRouteWithChildren,
   AlunoMateriaisRoute: AlunoMateriaisRoute,
   AlunoPagamentosRoute: AlunoPagamentosRoute,
+  AlunoVipRoute: AlunoVipRoute,
   AlunoIndexRoute: AlunoIndexRoute,
 }
 

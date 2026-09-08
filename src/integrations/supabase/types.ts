@@ -53,6 +53,7 @@ export type Database = {
           full_name: string
           google_event_id: string | null
           id: string
+          meet_url: string | null
           notes: string | null
           payment_method: string | null
           payment_status: string
@@ -61,6 +62,7 @@ export type Database = {
           starts_at: string
           status: string
           user_id: string | null
+          whatsapp_sent_at: string | null
         }
         Insert: {
           amount_cents?: number
@@ -70,6 +72,7 @@ export type Database = {
           full_name: string
           google_event_id?: string | null
           id?: string
+          meet_url?: string | null
           notes?: string | null
           payment_method?: string | null
           payment_status?: string
@@ -78,6 +81,7 @@ export type Database = {
           starts_at: string
           status?: string
           user_id?: string | null
+          whatsapp_sent_at?: string | null
         }
         Update: {
           amount_cents?: number
@@ -87,6 +91,7 @@ export type Database = {
           full_name?: string
           google_event_id?: string | null
           id?: string
+          meet_url?: string | null
           notes?: string | null
           payment_method?: string | null
           payment_status?: string
@@ -95,6 +100,7 @@ export type Database = {
           starts_at?: string
           status?: string
           user_id?: string | null
+          whatsapp_sent_at?: string | null
         }
         Relationships: [
           {
@@ -490,6 +496,7 @@ export type Database = {
       services: {
         Row: {
           active: boolean
+          billing_period: string | null
           checkout_url: string | null
           created_at: string
           description: string | null
@@ -502,9 +509,11 @@ export type Database = {
           package_price_cents: number | null
           price_cents: number
           sort_order: number
+          vip_only: boolean
         }
         Insert: {
           active?: boolean
+          billing_period?: string | null
           checkout_url?: string | null
           created_at?: string
           description?: string | null
@@ -517,9 +526,11 @@ export type Database = {
           package_price_cents?: number | null
           price_cents?: number
           sort_order?: number
+          vip_only?: boolean
         }
         Update: {
           active?: boolean
+          billing_period?: string | null
           checkout_url?: string | null
           created_at?: string
           description?: string | null
@@ -532,6 +543,7 @@ export type Database = {
           package_price_cents?: number | null
           price_cents?: number
           sort_order?: number
+          vip_only?: boolean
         }
         Relationships: []
       }
@@ -599,6 +611,8 @@ export type Database = {
           phone: string | null
           profile_id: string | null
           status: string
+          vip: boolean
+          vip_since: string | null
         }
         Insert: {
           created_at?: string
@@ -609,6 +623,8 @@ export type Database = {
           phone?: string | null
           profile_id?: string | null
           status?: string
+          vip?: boolean
+          vip_since?: string | null
         }
         Update: {
           created_at?: string
@@ -619,6 +635,8 @@ export type Database = {
           phone?: string | null
           profile_id?: string | null
           status?: string
+          vip?: boolean
+          vip_since?: string | null
         }
         Relationships: [
           {

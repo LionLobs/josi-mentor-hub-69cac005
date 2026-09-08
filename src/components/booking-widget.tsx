@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { createMeetForBooking } from "@/lib/booking.functions";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, CalendarX2, ChevronLeft, ChevronRight, Clock, Tag, User, Check, Loader2,
-  CreditCard, QrCode, ShieldCheck, ExternalLink,
+  CreditCard, QrCode, ShieldCheck, ExternalLink, Video, MessageCircle,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl } from "@/lib/format";
@@ -53,7 +55,10 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
   const [slot, setSlot] = useState<string | null>(null);
   const [method, setMethod] = useState<PaymentMethod>("pix");
   const [form, setForm] = useState({ full_name: "", email: "", phone: "", notes: "" });
-  const [confirmed, setConfirmed] = useState<{ starts_at: string; service: Service; method: PaymentMethod } | null>(null);
+  const [confirmed, setConfirmed] = useState<
+    { starts_at: string; service: Service; method: PaymentMethod; meetUrl: string | null } | null
+  >(null);
+  const createMeet = useServerFn(createMeetForBooking);
 
   const { data: services = [], isLoading: loadingServices } = useQuery({
     queryKey: ["services", kind],
@@ -92,21 +97,45 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
       const { data: auth } = await supabase.auth.getUser();
       const user = auth.user;
       const chosen: PaymentMethod = needsPayment ? method : "presencial";
-      const { error } = await supabase.from("bookings").insert({
-        service_id: service.id,
-        user_id: user?.id ?? null,
-        full_name: form.full_name.trim(),
-        email: form.email.trim() || user?.email || "",
-        phone: form.phone.trim() || null,
-        starts_at: slot,
-        duration_min: service.duration_min,
-        notes: form.notes.trim() || null,
-        amount_cents: price,
-        payment_method: chosen,
-        payment_status: needsPayment ? "pendente" : "isento",
-      });
+      const email = form.email.trim() || user?.email || "";
+      const { data: created, error } = await supabase
+        .from("bookings")
+        .insert({
+          service_id: service.id,
+          user_id: user?.id ?? null,
+          full_name: form.full_name.trim(),
+          email,
+          phone: form.phone.trim() || null,
+          starts_at: slot,
+          duration_min: service.duration_min,
+          notes: form.notes.trim() || null,
+          amount_cents: price,
+          payment_method: chosen,
+          payment_status: needsPayment ? "pendente" : "isento",
+        })
+        .select("id")
+        .single();
       if (error) throw error;
-      return { starts_at: slot, service, method: chosen };
+
+      let meetUrl: string | null = null;
+      if (kind === "mentoria" && created?.id) {
+        try {
+          const res = await createMeet({
+            data: {
+              bookingId: created.id,
+              title: `${service.name} — Josi Nascimento`,
+              startsAt: slot,
+              durationMin: service.duration_min,
+              attendeeEmail: email || null,
+              notes: form.notes.trim() || null,
+            },
+          });
+          if (res.ok) meetUrl = res.meetUrl;
+        } catch (err) {
+          console.error("Google Meet", err);
+        }
+      }
+      return { starts_at: slot, service, method: chosen, meetUrl };
     },
     onSuccess: (res) => {
       toast.success("Agendamento confirmado!");
@@ -136,6 +165,7 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
     });
     const amount = confirmed.service.price_cents;
     const pixMsg = `Olá! Agendei ${confirmed.service.name} para ${when}. Quero pagar via Pix (${brl(amount)}).`;
+    const confirmMsg = `Olá! Confirmando meu agendamento: ${confirmed.service.name} em ${when}.${confirmed.meetUrl ? ` Sala do Meet: ${confirmed.meetUrl}` : ""}`;
     return (
       <div className="rounded-[2rem] border border-gold/25 bg-gradient-to-br from-gold/10 to-transparent p-6 text-center md:p-10">
         <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-black">
@@ -180,8 +210,35 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
             </p>
           </div>
         ) : (
-          <p className="mt-6 text-sm text-white/50">Sua call de mentoria está incluída no programa. O link será enviado por e-mail.</p>
+          <p className="mt-6 text-sm text-white/50">Sua call de mentoria está incluída no programa.</p>
         )}
+
+        {confirmed.meetUrl && (
+          <div className="mx-auto mt-6 max-w-md rounded-2xl border border-gold/25 bg-gold/[0.07] p-5">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-gold">Sala da sua call</p>
+            <p className="mt-2 text-xs text-white/55">
+              Já reservamos o horário na agenda da Josi e criamos a sala no Google Meet.
+            </p>
+            <a
+              href={confirmed.meetUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-3 text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-white"
+            >
+              <Video className="h-4 w-4" /> Entrar no Google Meet
+            </a>
+          </div>
+        )}
+
+        <a
+          href={whatsappLink(confirmMsg)}
+          target="_blank"
+          rel="noreferrer"
+          className="mx-auto mt-6 flex w-full max-w-md items-center justify-center gap-2 rounded-xl border border-gold/40 py-3 text-xs font-bold uppercase tracking-widest text-gold transition-all hover:bg-gold hover:text-black"
+        >
+          <MessageCircle className="h-4 w-4" /> Enviar confirmação no WhatsApp
+        </a>
+
 
         <button
           onClick={reset}
