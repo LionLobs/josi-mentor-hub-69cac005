@@ -209,8 +209,35 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
             </p>
           </div>
         ) : (
-          <p className="mt-6 text-sm text-white/50">Sua call de mentoria está incluída no programa. O link será enviado por e-mail.</p>
+          <p className="mt-6 text-sm text-white/50">Sua call de mentoria está incluída no programa.</p>
         )}
+
+        {confirmed.meetUrl && (
+          <div className="mx-auto mt-6 max-w-md rounded-2xl border border-gold/25 bg-gold/[0.07] p-5">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-gold">Sala da sua call</p>
+            <p className="mt-2 text-xs text-white/55">
+              Já reservamos o horário na agenda da Josi e criamos a sala no Google Meet.
+            </p>
+            <a
+              href={confirmed.meetUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-3 text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-white"
+            >
+              <Video className="h-4 w-4" /> Entrar no Google Meet
+            </a>
+          </div>
+        )}
+
+        <a
+          href={whatsappLink(confirmMsg)}
+          target="_blank"
+          rel="noreferrer"
+          className="mx-auto mt-6 flex w-full max-w-md items-center justify-center gap-2 rounded-xl border border-gold/40 py-3 text-xs font-bold uppercase tracking-widest text-gold transition-all hover:bg-gold hover:text-black"
+        >
+          <MessageCircle className="h-4 w-4" /> Enviar confirmação no WhatsApp
+        </a>
+
 
         <button
           onClick={reset}
