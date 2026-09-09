@@ -114,6 +114,7 @@ export const Route = createFileRoute("/admin/agendamentos")({
         { name: "amount_cents", label: "Valor (R$)", type: "money", defaultValue: 0 },
         { name: "notes", label: "Anotações", type: "textarea" },
       ]}
-    />
+      />
+    </>
   ),
 });
