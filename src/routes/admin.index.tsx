@@ -179,7 +179,7 @@ function Dashboard() {
                     <span className="text-[9px] font-bold uppercase tracking-widest text-center">Subir Aula</span>
                  </Link>
                  <Link to="/admin/integracoes" className="flex flex-col items-center justify-center p-4 rounded-2xl bg-black/5 border border-black/10 hover:bg-black hover:text-white transition-all duration-300">
-                    <Settings className="h-5 w-5 mb-2" />
+                    <SettingsIcon className="h-5 w-5 mb-2" />
                     <span className="text-[9px] font-bold uppercase tracking-widest text-center">Ajustes</span>
                  </Link>
               </div>
