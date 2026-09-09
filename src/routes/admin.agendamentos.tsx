@@ -49,7 +49,9 @@ export const Route = createFileRoute("/admin/agendamentos")({
     ],
   }),
   component: () => (
-    <CrudPage
+    <>
+      <ShareAgendaLink />
+      <CrudPage
       table="bookings"
       title="Agendamentos"
       description="Clientes marcados na agenda de serviços."
