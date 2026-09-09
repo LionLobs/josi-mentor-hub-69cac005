@@ -5,7 +5,7 @@ import { createMeetForBooking } from "@/lib/booking.functions";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, CalendarX2, ChevronLeft, ChevronRight, Clock, Tag, User, Check, Loader2,
-  CreditCard, QrCode, ShieldCheck, ExternalLink, Video, MessageCircle,
+  CreditCard, QrCode, ShieldCheck, ExternalLink, Video, MessageCircle, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl } from "@/lib/format";
@@ -253,18 +253,26 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
   /* ---------- Lista de serviços ---------- */
   if (!service) {
     return (
-      <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl md:p-10">
+      <div className="rounded-[2rem] border border-gold/20 bg-gradient-to-b from-white/[0.05] to-white/[0.02] p-5 backdrop-blur-xl md:p-10">
         <div className="mb-8 text-center">
+          <div className="mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full border border-gold/30 bg-gold/10">
+            <Sparkles className="h-3.5 w-3.5 text-gold" />
+          </div>
           <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.4em] text-gold">
             {kind === "mentoria" ? "Mentoria" : "Atendimentos"}
           </p>
           <h2 className="font-serif text-2xl text-white md:text-3xl">
             {kind === "mentoria" ? <>Agende sua <span className="italic text-gold">call</span></> : <>Escolha o seu <span className="italic text-gold">serviço</span></>}
           </h2>
+          <div className="mx-auto mt-3 h-px w-20 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
         </div>
         {loadingServices ? (
-          <div className="space-y-3">
-            {[1, 2, 3, 4].map(i => <div key={i} className="h-14 animate-pulse rounded-2xl bg-white/5" />)}
+          <div className="mx-auto max-w-2xl space-y-3">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="relative h-16 overflow-hidden rounded-2xl border border-white/5 bg-white/[0.04]">
+                <div className="absolute inset-y-0 -left-full w-1/2 animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-gold/10 to-transparent" />
+              </div>
+            ))}
           </div>
         ) : services.length === 0 ? (
           <p className="text-center text-sm text-white/40">Nenhum serviço disponível no momento.</p>
@@ -277,15 +285,16 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: Math.min(i * 0.03, 0.4) }}
                 onClick={() => { setService(s); setSlot(null); }}
-                className="group flex w-full items-center justify-between gap-4 rounded-2xl border border-gold/25 bg-gradient-to-r from-gold/15 to-gold/5 px-4 py-4 text-left transition-all hover:border-gold/60 hover:from-gold/25 md:px-5"
+                className="group relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-r from-gold/[0.12] via-gold/[0.06] to-transparent px-4 py-4 text-left transition-all hover:border-gold/70 hover:from-gold/[0.22] hover:via-gold/[0.10] hover:shadow-gold-sm md:px-5"
               >
+                <span className="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-gold via-gold-soft to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <span className="min-w-0">
                   <span className="block truncate font-medium text-white transition-colors group-hover:text-gold">{s.name}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/35">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/40">
                     {s.duration_min} min {s.price_cents > 0 ? `· ${brl(s.price_cents)}` : "· incluso"}
                   </span>
                 </span>
-                <ChevronRight className="h-4 w-4 shrink-0 text-gold" />
+                <ChevronRight className="h-4 w-4 shrink-0 text-gold transition-transform group-hover:translate-x-1" />
               </motion.button>
             ))}
           </div>
