@@ -14,6 +14,8 @@
    - Botão de confirmação manual adicionado na tela de agendamento.
    - Envio automático depende de conector WhatsApp/Twilio no novo workspace.
 
+4. **Link público de agendamento** — página pública (somente agendar serviços) para a Josi compartilhar.
+
 ## Próximos passos (após reconectar)
 - Testar criação de evento no Google Calendar.
 - Publicar preview para validação.
