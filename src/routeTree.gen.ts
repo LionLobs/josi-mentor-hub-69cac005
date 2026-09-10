@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AgendamentoConfirmadoRouteImport } from './routes/agendamento-confirmado'
 import { Route as AgendarRouteImport } from './routes/agendar'
 import { Route as AlunoRouteImport } from './routes/aluno'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendamentoConfirmadoRoute = AgendamentoConfirmadoRouteImport.update({
+  id: '/agendamento-confirmado',
+  path: '/agendamento-confirmado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgendarRoute = AgendarRouteImport.update({
@@ -182,6 +188,7 @@ const ApiPublicKiwifyRoute = ApiPublicKiwifyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/agendamento-confirmado': typeof AgendamentoConfirmadoRoute
   '/agendar': typeof AgendarRoute
   '/aluno': typeof AlunoRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agendamento-confirmado': typeof AgendamentoConfirmadoRoute
   '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRouteWithChildren
   '/admin/agenda': typeof AdminAgendaRoute
@@ -241,6 +249,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/agendamento-confirmado': typeof AgendamentoConfirmadoRoute
   '/agendar': typeof AgendarRoute
   '/aluno': typeof AlunoRouteWithChildren
   '/auth': typeof AuthRouteWithChildren
@@ -273,6 +282,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/agendamento-confirmado'
     | '/agendar'
     | '/aluno'
     | '/auth'
@@ -302,6 +312,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/agendamento-confirmado'
     | '/agendar'
     | '/auth'
     | '/admin/agenda'
@@ -331,6 +342,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/agendamento-confirmado'
     | '/agendar'
     | '/aluno'
     | '/auth'
@@ -362,6 +374,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  AgendamentoConfirmadoRoute: typeof AgendamentoConfirmadoRoute
   AgendarRoute: typeof AgendarRoute
   AlunoRoute: typeof AlunoRouteWithChildren
   AuthRoute: typeof AuthRouteWithChildren
@@ -382,6 +395,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agendamento-confirmado': {
+      id: '/agendamento-confirmado'
+      path: '/agendamento-confirmado'
+      fullPath: '/agendamento-confirmado'
+      preLoaderRoute: typeof AgendamentoConfirmadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agendar': {
@@ -650,6 +670,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  AgendamentoConfirmadoRoute: AgendamentoConfirmadoRoute,
   AgendarRoute: AgendarRoute,
   AlunoRoute: AlunoRouteWithChildren,
   AuthRoute: AuthRouteWithChildren,

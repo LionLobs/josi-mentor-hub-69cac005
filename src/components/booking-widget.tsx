@@ -1,15 +1,15 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useNavigate } from "@tanstack/react-router";
 import { createMeetForBooking } from "@/lib/booking.functions";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  ArrowLeft, CalendarX2, ChevronLeft, ChevronRight, Clock, Tag, User, Check, Loader2,
-  CreditCard, QrCode, ShieldCheck, ExternalLink, Video, MessageCircle, Sparkles,
+  ArrowLeft, ChevronLeft, ChevronRight, Clock, Tag, User, Loader2,
+  CreditCard, QrCode, ChevronRight as ChevronRightIcon, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl } from "@/lib/format";
-import { whatsappLink } from "@/lib/contact";
 import { toast } from "sonner";
 
 type Service = {
