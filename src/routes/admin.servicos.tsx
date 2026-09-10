@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CrudPage } from "@/components/crud-page";
 import { brl } from "@/lib/format";
+import { ShareAgendaLink } from "@/components/share-agenda-link";
 
 export const Route = createFileRoute("/admin/servicos")({
   head: () => ({
@@ -15,6 +16,8 @@ export const Route = createFileRoute("/admin/servicos")({
     ],
   }),
   component: () => (
+    <>
+      <ShareAgendaLink />
     <CrudPage
       table="services"
       title="Serviços"
@@ -64,5 +67,6 @@ export const Route = createFileRoute("/admin/servicos")({
         { name: "active", label: "Disponível na agenda", type: "checkbox", defaultValue: true },
       ]}
     />
+    </>
   ),
 });
