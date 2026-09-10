@@ -98,24 +98,36 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
       const user = auth.user;
       const chosen: PaymentMethod = needsPayment ? method : "presencial";
       const email = form.email.trim() || user?.email || "";
-      const { data: created, error } = await supabase
-        .from("bookings")
-        .insert({
-          service_id: service.id,
-          user_id: user?.id ?? null,
-          full_name: form.full_name.trim(),
-          email,
-          phone: form.phone.trim() || null,
-          starts_at: slot,
-          duration_min: service.duration_min,
-          notes: form.notes.trim() || null,
-          amount_cents: price,
-          payment_method: chosen,
-          payment_status: needsPayment ? "pendente" : "isento",
-        })
-        .select("id")
-        .single();
-      if (error) throw error;
+      const payload = {
+        service_id: service.id,
+        user_id: user?.id ?? null,
+        full_name: form.full_name.trim(),
+        email,
+        phone: form.phone.trim() || null,
+        starts_at: slot,
+        duration_min: service.duration_min,
+        notes: form.notes.trim() || null,
+        amount_cents: price,
+        payment_method: chosen,
+        payment_status: needsPayment ? "pendente" : "isento",
+      };
+
+      let created: { id: string } | null = null;
+      if (user) {
+        // Usuário logado pode ler o próprio agendamento de volta.
+        const { data, error } = await supabase
+          .from("bookings")
+          .insert(payload)
+          .select("id")
+          .single();
+        if (error) throw error;
+        created = data;
+      } else {
+        // Visitante: sem retorno de dados (leitura não é permitida para visitantes).
+        const { error } = await supabase.from("bookings").insert(payload);
+        if (error) throw error;
+      }
+
 
       let meetUrl: string | null = null;
       if (kind === "mentoria" && created?.id) {
