@@ -32,6 +32,9 @@ import josiHeroBg from "@/assets/josi-17.jpg";
 import josiNovoHero from "@/assets/josi-25.jpg";
 import ebookImg from "@/assets/ebook-oficial.png";
 import { Button } from "@/components/ui/button";
+import ogImage from "@/assets/og-josi.jpg.asset.json";
+
+const SITE_ORIGIN = "https://josi-mentor-hub.lovable.app";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,6 +51,11 @@ export const Route = createFileRoute("/")({
         content:
           "Método guiado, aulas gravadas, agenda online e acompanhamento individual. Menos dúvidas, mais técnica, mais confiança.",
       },
+      { property: "og:image", content: `${SITE_ORIGIN}${ogImage.url}` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:type", content: "image/jpeg" },
+      { name: "twitter:image", content: `${SITE_ORIGIN}${ogImage.url}` },
     ],
   }),
   component: Landing,
