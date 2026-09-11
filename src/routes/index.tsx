@@ -22,6 +22,8 @@ import {
 import { motion } from "framer-motion";
 import heroImg from "@/assets/hero-mentoria.jpg";
 import logoAsset from "@/assets/logo-horiz.png";
+import logoSimbolo from "@/assets/logo-simbolo.png";
+
 import josiHero from "@/assets/josi-42.jpg";
 import josiSobre from "@/assets/josi-10.jpg";
 import josiPremio from "@/assets/josi-25.jpg";
@@ -198,6 +200,15 @@ function Landing() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="text-left max-w-3xl"
           >
+            <motion.img
+              src={logoSimbolo}
+              alt="Símbolo Josi Nascimento"
+              initial={{ opacity: 0, y: 12, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-6 h-16 w-auto sm:h-20 drop-shadow-[0_10px_40px_rgba(212,175,55,0.35)]"
+            />
+
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -210,6 +221,7 @@ function Landing() {
               </span>
               <span className="text-[10px] font-bold tracking-[0.4em] text-gold uppercase">Inscrições Abertas</span>
             </motion.div>
+
 
             <h1 className="font-display text-4xl leading-[1.05] sm:text-6xl lg:text-7xl font-medium tracking-tight">
               <span className="block opacity-90">DOMINE A ARTE DA</span>
