@@ -3,10 +3,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useNavigate } from "@tanstack/react-router";
 import { createMeetForBooking } from "@/lib/booking.functions";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowLeft, ChevronLeft, ChevronRight, Clock, Tag, User, Loader2,
-  CreditCard, QrCode, ChevronRight as ChevronRightIcon, Sparkles,
+  ArrowLeft, CalendarX2, ChevronLeft, ChevronRight, Clock, Tag, User, Check, Loader2,
+  CreditCard, QrCode, ShieldCheck, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl } from "@/lib/format";
@@ -49,15 +49,13 @@ const METHODS: { id: PaymentMethod; label: string; note: string; icon: typeof Qr
 
 export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" | "mentoria" }) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [service, setService] = useState<Service | null>(null);
   const [cursor, setCursor] = useState(() => new Date());
   const [selectedDay, setSelectedDay] = useState<Date>(() => new Date());
   const [slot, setSlot] = useState<string | null>(null);
   const [method, setMethod] = useState<PaymentMethod>("pix");
   const [form, setForm] = useState({ full_name: "", email: "", phone: "", notes: "" });
-  const [confirmed, setConfirmed] = useState<
-    { starts_at: string; service: Service; method: PaymentMethod; meetUrl: string | null } | null
-  >(null);
   const createMeet = useServerFn(createMeetForBooking);
 
   const { data: services = [], isLoading: loadingServices } = useQuery({
@@ -151,10 +149,21 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
     },
     onSuccess: (res) => {
       toast.success("Agendamento confirmado!");
-      setConfirmed(res);
       setSlot(null);
       queryClient.invalidateQueries({ queryKey: ["slots"] });
       queryClient.invalidateQueries({ queryKey: ["meus-agendamentos"] });
+      navigate({
+        to: "/agendamento-confirmado",
+        search: {
+          servico: res.service.name,
+          inicio: res.starts_at,
+          duracao: res.service.duration_min,
+          valor: res.service.price_cents,
+          metodo: res.method,
+          meet: res.meetUrl ?? undefined,
+          checkout: res.service.checkout_url ?? undefined,
+        },
+      });
     },
     onError: (e: Error) => toast.error(e.message ?? "Não foi possível agendar."),
   });
@@ -162,105 +171,6 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
   const { blanks, days } = useMemo(() => buildMonth(cursor), [cursor]);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-
-  const reset = () => {
-    setConfirmed(null);
-    setService(null);
-    setSlot(null);
-    setForm({ full_name: "", email: "", phone: "", notes: "" });
-  };
-
-  /* ---------- Checkout / confirmação ---------- */
-  if (confirmed) {
-    const when = new Date(confirmed.starts_at).toLocaleString("pt-BR", {
-      day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit",
-    });
-    const amount = confirmed.service.price_cents;
-    const pixMsg = `Olá! Agendei ${confirmed.service.name} para ${when}. Quero pagar via Pix (${brl(amount)}).`;
-    const confirmMsg = `Olá! Confirmando meu agendamento: ${confirmed.service.name} em ${when}.${confirmed.meetUrl ? ` Sala do Meet: ${confirmed.meetUrl}` : ""}`;
-    return (
-      <div className="rounded-[2rem] border border-gold/25 bg-gradient-to-br from-gold/10 to-transparent p-6 text-center md:p-10">
-        <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-gold text-black">
-          <Check className="h-7 w-7" />
-        </div>
-        <h2 className="font-serif text-3xl text-white">Agendamento confirmado</h2>
-        <p className="mt-2 text-sm text-white/60">
-          {confirmed.service.name} · {when}
-        </p>
-
-        {amount > 0 ? (
-          <div className="mx-auto mt-8 max-w-md rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-left">
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-white/50">Total</span>
-              <span className="font-serif text-2xl text-gold">{brl(amount)}</span>
-            </div>
-            <p className="mt-4 text-xs leading-relaxed text-white/50">
-              Pagamento <strong className="text-white/80">pendente</strong>. Finalize abaixo para garantir o horário.
-            </p>
-            <div className="mt-5 space-y-3">
-              {confirmed.method === "cartao" && confirmed.service.checkout_url ? (
-                <a
-                  href={confirmed.service.checkout_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-3 text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-white"
-                >
-                  <CreditCard className="h-4 w-4" /> Pagar com cartão <ExternalLink className="h-3 w-3" />
-                </a>
-              ) : null}
-              <a
-                href={whatsappLink(pixMsg)}
-                target="_blank"
-                rel="noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 py-3 text-xs font-bold uppercase tracking-widest text-gold transition-all hover:bg-gold hover:text-black"
-              >
-                <QrCode className="h-4 w-4" /> Receber chave Pix
-              </a>
-            </div>
-            <p className="mt-4 flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest text-white/30">
-              <ShieldCheck className="h-3 w-3 text-gold" /> Pagamento protegido
-            </p>
-          </div>
-        ) : (
-          <p className="mt-6 text-sm text-white/50">Sua call de mentoria está incluída no programa.</p>
-        )}
-
-        {confirmed.meetUrl && (
-          <div className="mx-auto mt-6 max-w-md rounded-2xl border border-gold/25 bg-gold/[0.07] p-5">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-gold">Sala da sua call</p>
-            <p className="mt-2 text-xs text-white/55">
-              Já reservamos o horário na agenda da Josi e criamos a sala no Google Meet.
-            </p>
-            <a
-              href={confirmed.meetUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-gold py-3 text-xs font-bold uppercase tracking-widest text-black transition-all hover:bg-white"
-            >
-              <Video className="h-4 w-4" /> Entrar no Google Meet
-            </a>
-          </div>
-        )}
-
-        <a
-          href={whatsappLink(confirmMsg)}
-          target="_blank"
-          rel="noreferrer"
-          className="mx-auto mt-6 flex w-full max-w-md items-center justify-center gap-2 rounded-xl border border-gold/40 py-3 text-xs font-bold uppercase tracking-widest text-gold transition-all hover:bg-gold hover:text-black"
-        >
-          <MessageCircle className="h-4 w-4" /> Enviar confirmação no WhatsApp
-        </a>
-
-
-        <button
-          onClick={reset}
-          className="mt-8 text-[10px] font-bold uppercase tracking-widest text-white/40 hover:text-gold"
-        >
-          Fazer outro agendamento
-        </button>
-      </div>
-    );
-  }
 
   /* ---------- Lista de serviços ---------- */
   if (!service) {

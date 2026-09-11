@@ -8,24 +8,24 @@ import { whatsappLink } from "@/lib/contact";
 import josiBg from "@/assets/josi-25.jpg";
 
 type ConfirmSearch = {
-  servico?: string;
-  inicio?: string;
-  duracao?: number;
-  valor?: number;
-  metodo?: string;
-  meet?: string;
-  checkout?: string;
+  servico?: string | undefined;
+  inicio?: string | undefined;
+  duracao?: number | undefined;
+  valor?: number | undefined;
+  metodo?: string | undefined;
+  meet?: string | undefined;
+  checkout?: string | undefined;
 };
 
 export const Route = createFileRoute("/agendamento-confirmado")({
   validateSearch: (search: Record<string, unknown>): ConfirmSearch => ({
-    servico: typeof search.servico === "string" ? search.servico : undefined,
-    inicio: typeof search.inicio === "string" ? search.inicio : undefined,
-    duracao: typeof search.duracao === "number" ? search.duracao : undefined,
-    valor: typeof search.valor === "number" ? search.valor : undefined,
-    metodo: typeof search.metodo === "string" ? search.metodo : undefined,
-    meet: typeof search.meet === "string" ? search.meet : undefined,
-    checkout: typeof search.checkout === "string" ? search.checkout : undefined,
+    servico: typeof search["servico"] === "string" ? search["servico"] : undefined,
+    inicio: typeof search["inicio"] === "string" ? search["inicio"] : undefined,
+    duracao: typeof search["duracao"] === "number" ? search["duracao"] : undefined,
+    valor: typeof search["valor"] === "number" ? search["valor"] : undefined,
+    metodo: typeof search["metodo"] === "string" ? search["metodo"] : undefined,
+    meet: typeof search["meet"] === "string" ? search["meet"] : undefined,
+    checkout: typeof search["checkout"] === "string" ? search["checkout"] : undefined,
   }),
   head: () => ({
     meta: [
