@@ -6,7 +6,7 @@ import { createMeetForBooking } from "@/lib/booking.functions";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, ChevronLeft, ChevronRight, Clock, Tag, User, Loader2,
-  CreditCard, QrCode, ChevronRight as ChevronRightIcon, Sparkles,
+  CreditCard, QrCode, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brl } from "@/lib/format";
