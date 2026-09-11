@@ -149,10 +149,21 @@ export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" |
     },
     onSuccess: (res) => {
       toast.success("Agendamento confirmado!");
-      setConfirmed(res);
       setSlot(null);
       queryClient.invalidateQueries({ queryKey: ["slots"] });
       queryClient.invalidateQueries({ queryKey: ["meus-agendamentos"] });
+      navigate({
+        to: "/agendamento-confirmado",
+        search: {
+          servico: res.service.name,
+          inicio: res.starts_at,
+          duracao: res.service.duration_min,
+          valor: res.service.price_cents,
+          metodo: res.method,
+          meet: res.meetUrl ?? undefined,
+          checkout: res.service.checkout_url ?? undefined,
+        },
+      });
     },
     onError: (e: Error) => toast.error(e.message ?? "Não foi possível agendar."),
   });
