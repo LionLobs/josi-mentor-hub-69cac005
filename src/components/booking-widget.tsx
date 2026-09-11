@@ -49,15 +49,13 @@ const METHODS: { id: PaymentMethod; label: string; note: string; icon: typeof Qr
 
 export function BookingWidget({ kind = "atendimento" }: { kind?: "atendimento" | "mentoria" }) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [service, setService] = useState<Service | null>(null);
   const [cursor, setCursor] = useState(() => new Date());
   const [selectedDay, setSelectedDay] = useState<Date>(() => new Date());
   const [slot, setSlot] = useState<string | null>(null);
   const [method, setMethod] = useState<PaymentMethod>("pix");
   const [form, setForm] = useState({ full_name: "", email: "", phone: "", notes: "" });
-  const [confirmed, setConfirmed] = useState<
-    { starts_at: string; service: Service; method: PaymentMethod; meetUrl: string | null } | null
-  >(null);
   const createMeet = useServerFn(createMeetForBooking);
 
   const { data: services = [], isLoading: loadingServices } = useQuery({
